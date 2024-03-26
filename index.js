@@ -1,6 +1,30 @@
-const db = require('./connector')
+const bodyParser = require('body-parser')
+const http = require('http')
+const express = require('express')
 
-db.setQuery('SELECT * FROM selecionar_produto_em_estoque();')
-db.execute()
-    .then(response => console.log(response))
+const app = express()
+const normalize = (value) => {
+    let port = value
+    if (isNaN(port)) return value
+    if (port >= 0) return port
+    return false
+}
+const port = normalize(process.env.PORT || 3000)
 
+app.set('port', port)
+app.use(bodyParser.urlencoded({extended: true}))
+app.use(express.urlencoded({extended: true}))
+app.use(express.json())
+
+const indexRouter = require('./routes/index')
+const estoqueRouter = require('./routes/estoques')
+const produtoRouter = require('./routes/produtos')
+const vendasRouter = require('./routes/vendas')
+
+app.use('/', indexRouter)
+app.use('/estoque', estoqueRouter)
+app.use('/produtos', produtoRouter)
+app.use('/vendas', vendasRouter)
+
+const server = http.createServer(app)
+server.listen(port)
