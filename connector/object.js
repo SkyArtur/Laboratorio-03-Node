@@ -1,9 +1,9 @@
 const { Client } = require('pg')
-require('dotenv').config()
 
 
-module.exports = new class {
-    constructor() {
+module.exports = class {
+    constructor(params) {
+        this.params = params
         this.query = {text: '', values: [], rowMode: 'object'}
     }
     setQuery(query = '', data = [] || ''){
@@ -11,11 +11,13 @@ module.exports = new class {
         this.query.values = typeof data === 'object' ? data : [data]
     }
     async execute() {
-        const client = new Client({connectionString: process.env.CONNECTION_STRING})
+        const client = new Client(this.params)
         try {
             await client.connect()
             const response = await client.query(this.query)
-            return response.rows
+            return new Promise((resolve, reject) => {
+                resolve(response.rows)
+            })
         } catch (e) {
             return e
         } finally {

@@ -1,12 +1,8 @@
 {
-  "name": "laboratorio-03-node",
+  "name": "connector",
   "version": "1.0.0",
   "description": "conector para banco de dados do laboratório.",
-  "main": "main.js",
-  "scripts": {
-    "start": "node main.js",
-    "test": "npx jest"
-  },
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SkyArtur/Laboratorio-03-Node.git"
@@ -27,8 +23,5 @@
   "dependencies": {
     "dotenv": "^16.4.5",
     "pg": "^8.11.5"
-  },
-  "devDependencies": {
-    "jest": "^29.7.0"
   }
 }
