@@ -1,5 +1,5 @@
 {
-  "name": "laboratorio-03-node",
+  "name": "connector",
   "version": "1.0.0",
   "description": "conector para banco de dados do laboratório.",
   "main": "main.js",
